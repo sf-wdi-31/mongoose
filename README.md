@@ -17,9 +17,10 @@ Market: SF
 <!-- specific/measurable goal for students to achieve -->
 *After this workshop, developers will be able to:*
 
-- Objective 1
-- Objective 2
-- Objective 3
+- Differentiate and relate the concepts of schemas and models in Mongoose.
+- Create Mongoose schemas & models and use Mongoose model instances.
+- Describe the relationship between Mongoose with Express and integrate the two in their projects.
+
 
 ### Where should we be now?
 <!-- call out the skills that are prerequisites -->
@@ -29,6 +30,7 @@ Market: SF
 - Skill 2
 - Skill 3
 # <img src="https://cloud.githubusercontent.com/assets/7833470/10423298/ea833a68-7079-11e5-84f8-0a925ab96893.png" width="60">  Mongo & Mongoose
+
 | Objectives |
 | :--- |
 | Create Mongoose schemas & models |
@@ -140,6 +142,8 @@ Once you've finished the above steps, here's how you would set up an Express app
 
 
 ## Terminology
+
+[Schema vs. Model](http://stackoverflow.com/questions/22950282/mongoose-schema-vs-model/22950402#22950402)
 
 **Schema**: Similar to an object constructor, a Schema is a diagram or blueprint for what every object in the noSQL database will contain. Here's an example of a simple Address Book noSQL database schema:
 
