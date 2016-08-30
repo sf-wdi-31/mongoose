@@ -1,17 +1,17 @@
 <!--
-Creator: <Name>
+Creator: Cory Fauver
 Market: SF
 -->
 
 ![](https://ga-dash.s3.amazonaws.com/production/assets/logo-9f88ae6c9c3871690e33280fcf557f33.png)
 
-# Workshop Title
+# Mongo and Mongoose
 
 ### Why is this important?
 <!-- framing the "why" in big-picture/real world examples -->
 *This workshop is important because:*
 
-...
+Arrays are not a good place to store data permanently. We have been adding objects to arrays in our server side code in order to keep track of the data that's coming and going. When we restart server.js, any changes that we made to the data are lost! We need to be able to talk to a *database* that is outside of our server code in order to store information for the long-term. MongoDB is a popular database that is often used in conjunction with full stack JavaScript applications. Mongoose is a package built to make communication with MongoDB as easy as possible.
 
 ### What are the objectives?
 <!-- specific/measurable goal for students to achieve -->
@@ -26,22 +26,17 @@ Market: SF
 <!-- call out the skills that are prerequisites -->
 *Before this workshop, developers should already be able to:*
 
-- Skill 1
-- Skill 2
-- Skill 3
-# <img src="https://cloud.githubusercontent.com/assets/7833470/10423298/ea833a68-7079-11e5-84f8-0a925ab96893.png" width="60">  Mongo & Mongoose
+- Use Express to configure a server's responses to various HTTP verbs on various routes.
+- On the server-side, access data that comes in on a request from the client-side (`req.body` or `req.params`).
+-
 
-| Objectives |
-| :--- |
-| Create Mongoose schemas & models |
-| Integrate Mongoose with Express |
-| Make use of Mongoose model instances |
+|
 
 ## Review: What are Mongo and Mongoose?
 
 ![tumblr_nbhme6bafu1s02vreo1_500](https://cloud.githubusercontent.com/assets/4304660/16811532/b08865a8-48dd-11e6-9474-c114b2e8a00d.gif)
 
-`MongoDB` is a no-SQL database. `Mongoose` is a library or "wrapper" that gives us a bunch of convenience methods for working with MongoDB records (kind of like jQuery's convenience methods for manipulating the DOM). Generally we will not be interacting _directly_ with MongoDB, instead we'll be working with `mongoose`.
+`MongoDB` is a no-SQL database. It is responsible for putting data in containers and making sure that the data is safe and organized. `Mongoose` is a library or "wrapper" that gives us a bunch of convenience methods for working with MongoDB records (kind of like jQuery's convenience methods for manipulating the DOM). Generally we will not be interacting _directly_ with MongoDB, instead we'll be working with `mongoose`.
 
 <details><summary>Side-note: Wondering what makes noSQL different from SQL? (we'll talk more about this later)</summary>
 
@@ -63,7 +58,7 @@ Since Mongo is the first database we've worked with it's hard for us to discuss 
 
 Let's do a quick activity and get Mongoose and Mongo setup on our machines.
 
-1. Assuming you already have MongoDB installed <sub>(you did this at installfest)</sub>, to get started using mongoose in a project, we have to install it in our `package.json`:
+1. Assuming you already have MongoDB installed (you did this at installfest), to get started using mongoose in a project, we have to install it in our `package.json`:
 
   ```bash
     npm install --save mongoose
@@ -78,7 +73,7 @@ Let's do a quick activity and get Mongoose and Mongo setup on our machines.
 
     <details>
       <summary>What's a connection string?</summary>
-      `mongodb://localhost/todo-app-demo` is a string formatted by specifications provided by the Mongoose package in order to connect to a MongoDB database on your local system named `todo-app-demo`. You can name it whatever you like and it will be created as soon as you save some data to it.
+      `mongodb://localhost/todo-app-demo` is a string to connect to a MongoDB database on your local system named `todo-app-demo`. You can name the system whatever you like and it will be created as soon as you save some data to it.
     </details>
 
 3. Finally, we need to run the MongodDB service. Generally you will want it open in a separate tab, running in the background.
@@ -90,6 +85,33 @@ Let's do a quick activity and get Mongoose and Mongo setup on our machines.
     **Note:** If you already have an instance of MongoDB running, you'll get an error at this step. If that's the case, you can move on to the next step, since MongoDB is already running!
 
 Running your MongoDB service is no different from running your Express Server!
+
+
+## Schemas and Models
+
+[Schema vs. Model](http://stackoverflow.com/questions/22950282/mongoose-schema-vs-model/22950402#22950402)
+
+**[Schema](http://mongoosejs.com/docs/guide.html)**: A Schema is a diagram or blueprint for what every object in the noSQL database will contain. It does not include any methods, just placeholders for what data you will eventually store. Here's an example of a simple Address Book mongoose schema:
+
+```js
+    var ContactSchema = new Schema({
+        firstName: String,
+        lastName: String,
+        address: String,
+        phoneNumber: Number,
+        email: String,
+        professionalContact: Boolean
+    });
+```
+
+With the above Schema, we can expect that all of our Address Book entries would have a first name, last name, address, and email address in the form of Strings. We can count on the phoneNumber to always be accepted, stored, and returned as a number. Lastly, the boolean value of Professional Contact will always be a true or false. A Schema has no functionality. It simply defines the shape of the data that we will expect when we work with contacts.
+
+**[Model](http://mongoosejs.com/docs/models.html)**: A mongoose model is compiled from a Schema. It takes in the structure and shape of a Schema and adds the capacity to perform actions such as reading, saving, updating, etc. The Schema is just an inert mould to make sure that the models will hold the data consistently. A model is actually capable of creating new entries in a database and retrieving data from the database. Here's how you'd make a Contact model out of our Contact Schema:
+
+```js
+var Contact = mongoose.model('Contact', ContactSchema);
+```
+
 
 ## Express/MongoDB Integration
 Once you've finished the above steps, here's how you would set up an Express application with a "Todo" model (so we can start CRUDing todos!).
@@ -138,33 +160,6 @@ Once you've finished the above steps, here's how you would set up an Express app
   var Todo = require('./models/todo');
   ```
 </details>
-
-
-
-## Terminology
-
-[Schema vs. Model](http://stackoverflow.com/questions/22950282/mongoose-schema-vs-model/22950402#22950402)
-
-**Schema**: Similar to an object constructor, a Schema is a diagram or blueprint for what every object in the noSQL database will contain. Here's an example of a simple Address Book noSQL database schema:
-
-```js
-    var ContactSchema = new Schema({
-        firstName: String,
-        lastName: String,
-        address: String,
-        phoneNumber: Number,
-        email: String,
-        professionalContact: Boolean
-    });
-```
-
-With the above Schema, we can expect that all of our Address Book entries would have a first name, last name, address, and email address in the form of Strings. We can count on the phoneNumber to always be accepted, stored, and returned as a number. Lastly, the boolean value of Professional Contact will always be a true or false
-
-**Model**: A model is a Schema that has been 'activated' with real data and is performing actions such as reading, saving, updating, etc.
-
-```js
-var Contact = mongoose.model('Contact', ContactSchema);
-```
 
 #### Database IDs and data-types
 
@@ -239,6 +234,18 @@ Notice that mongo has added an `_id` and `__v` attributes.
 
 
 ## CRUD Operations with Mongoose
+
+Yesterday, when we wanted to access or manipulate stored data, we worked with an array. We were sending along the whole array, finding single objects in an array, adding objects to an array, and deleting elements from an array.
+
+<details>
+  <summary>At what path did we do each of the above?</summary>
+  * sending along the whole array: GET /todos
+  * finding single objects in an array: GET /todos/:id
+  * adding objects to an array: POST /todos
+  * deleting elements from an array: DELETE /todos/:id
+</details>
+
+Luckily, Mongoose provides methods to access the database data which will help us accomplish the same work as yesterday.
 
 #### Get all todos: `.find()`
 
@@ -344,30 +351,8 @@ Notice that mongo has added an `_id` and `__v` attributes.
 #### Robomongo: The MongoDB GUI
 Exploring your databases with the MongoDB shell can be a chore. Robomongo is a free application that can make it a little easier on you: [Setting up Robomongo](https://scotch.io/tutorials/an-introduction-to-mongodb#gui-tool:-robomongo).
 
-
-## Challenges
-
-See your class schedule or Instructor for today's challenges!
-
-## Resources
-
-* [Scotch Tutorial: Intro to MongoDB](https://scotch.io/tutorials/an-introduction-to-mongodb)
-* [MongoDB Shell Commands](https://docs.mongodb.org/manual/reference/mongo-shell/)
-* [MongoDB CRUD Tutorials](https://docs.mongodb.org/manual/applications/crud/)
-* <a href="http://mongoosejs.com/docs/api.html#model_Model.find" target="_blank">.find()</a>
-* <a href="http://mongoosejs.com/docs/api.html#query_Query-findOne" target="_blank">.findOne()</a>
-* <a href="http://mongoosejs.com/docs/api.html#model_Model.findById" target="_blank">.findById()</a>
-* <a href="http://mongoosejs.com/docs/api.html#model_Model.findOneAndRemove" target="_blank">.findOneAndRemove()</a>
-* <a href="http://mongoosejs.com/docs/api.html#model_Model.remove" target="_blank">.remove()</a>
-###Check for Understanding
-
-<details>
-  <summary>Thought provoking question</summary>
-  <p>Mind-blowing explanation</p>
-</details>
-
 ## Independent Practice
-Refine the skills covered in this workshop with this [lab](#)
+Practice the skills covered in this workshop with the [Mongoose books training](https://github.com/sf-wdi-31/mongoose-books-app)
 
 ## Closing Thoughts
 - review objectives & hierarchy of importance
@@ -378,4 +363,11 @@ Refine the skills covered in this workshop with this [lab](#)
 - Check for understanding
 
 ## Additional Resources
-- [External Resource](#)
+* [Scotch Tutorial: Intro to MongoDB](https://scotch.io/tutorials/an-introduction-to-mongodb)
+* [MongoDB Shell Commands](https://docs.mongodb.org/manual/reference/mongo-shell/)
+* [MongoDB CRUD Tutorials](https://docs.mongodb.org/manual/applications/crud/)
+* <a href="http://mongoosejs.com/docs/api.html#model_Model.find" target="_blank">.find()</a>
+* <a href="http://mongoosejs.com/docs/api.html#query_Query-findOne" target="_blank">.findOne()</a>
+* <a href="http://mongoosejs.com/docs/api.html#model_Model.findById" target="_blank">.findById()</a>
+* <a href="http://mongoosejs.com/docs/api.html#model_Model.findOneAndRemove" target="_blank">.findOneAndRemove()</a>
+* <a href="http://mongoosejs.com/docs/api.html#model_Model.remove" target="_blank">.remove()</a>
