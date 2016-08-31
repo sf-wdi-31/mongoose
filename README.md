@@ -53,6 +53,43 @@ Since Mongo is the first database we've worked with it's hard for us to discuss 
 </details>
 
 
+## Schemas and Models
+
+Mongoose presents us with two key concepts for how we create and store data in our Mongo database.
+
+**[Schema](http://mongoosejs.com/docs/guide.html)**: A Schema is a diagram or blueprint for what every object in the noSQL database will contain. It does not include any methods, just placeholders for what data you will eventually store. Here's an example of a simple Address Book mongoose schema:
+
+```js
+    var ContactSchema = new Schema({
+        firstName: String,
+        lastName: String,
+        address: String,
+        phoneNumber: Number,
+        email: String,
+        professionalContact: Boolean
+    });
+```
+
+With the above Schema, we can expect that all of our Address Book entries would have a first name, last name, address, and email address in the form of Strings. We can count on the phoneNumber to always be accepted, stored, and returned as a number. Lastly, the boolean value of Professional Contact will always be a true or false. A Schema has no functionality. It simply defines the shape of the data that we will expect when we work with contacts.
+
+**[Model](http://mongoosejs.com/docs/models.html)**: A mongoose model is compiled from a Schema. It takes in the structure and shape of a Schema and adds the capacity to perform actions such as reading, saving, updating, etc. The Schema is just an inert mould to make sure that the models will hold the data consistently. A model is actually capable of creating new entries in a database and retrieving data from the database. Here's how you'd make a Contact model out of our Contact Schema:
+
+```js
+var Contact = mongoose.model('Contact', ContactSchema);
+```
+
+> In mongoose, a schema represents the structure of a particular document, either completely or just a portion of the document. It's a way to express expected properties and values as well as constraints and indexes. A model defines a programming interface for interacting with the database (read, insert, update, etc). So a schema answers "what will the data in this collection look like?" and a model provides functionality like "Are there any records matching this query?" or "Add a new document to the collection".
+
+> *[Source: Peter Lyons on stackoverflow](http://stackoverflow.com/questions/22950282/mongoose-schema-vs-model/22950402#22950402)*
+
+
+
+![image](https://i.chzbgr.com/full/7986468352/hE55E1B66/)
+
+Factory metaphor: Imagine a factory that has a mold for making rubber ducks. The mold would be the Schema. The machine that is capable of putting the different colored plastic into the mold, pressing it, and delivering a new toy to the world would be the model. The toy itself would be the data that would now be stored in some packaging in your database.
+
+![image](https://cloud.githubusercontent.com/assets/6520345/18133637/3e2d48e0-6f50-11e6-80c7-0336334d8c91.png)
+
 ## Mongo & Mongoose setup
 
 Let's do a quick activity and get Mongoose and Mongo setup on our machines.
@@ -84,37 +121,6 @@ Let's do a quick activity and get Mongoose and Mongo setup on our machines.
     **Note:** If you already have an instance of MongoDB running, you'll get an error at this step. If that's the case, you can move on to the next step, since MongoDB is already running!
 
 Running your MongoDB service is no different from running your Express Server!
-
-
-## Schemas and Models
-
-[Schema vs. Model](http://stackoverflow.com/questions/22950282/mongoose-schema-vs-model/22950402#22950402)
-
-**[Schema](http://mongoosejs.com/docs/guide.html)**: A Schema is a diagram or blueprint for what every object in the noSQL database will contain. It does not include any methods, just placeholders for what data you will eventually store. Here's an example of a simple Address Book mongoose schema:
-
-```js
-    var ContactSchema = new Schema({
-        firstName: String,
-        lastName: String,
-        address: String,
-        phoneNumber: Number,
-        email: String,
-        professionalContact: Boolean
-    });
-```
-
-With the above Schema, we can expect that all of our Address Book entries would have a first name, last name, address, and email address in the form of Strings. We can count on the phoneNumber to always be accepted, stored, and returned as a number. Lastly, the boolean value of Professional Contact will always be a true or false. A Schema has no functionality. It simply defines the shape of the data that we will expect when we work with contacts.
-
-**[Model](http://mongoosejs.com/docs/models.html)**: A mongoose model is compiled from a Schema. It takes in the structure and shape of a Schema and adds the capacity to perform actions such as reading, saving, updating, etc. The Schema is just an inert mould to make sure that the models will hold the data consistently. A model is actually capable of creating new entries in a database and retrieving data from the database. Here's how you'd make a Contact model out of our Contact Schema:
-
-```js
-var Contact = mongoose.model('Contact', ContactSchema);
-```
-
-![image](https://i.chzbgr.com/full/7986468352/hE55E1B66/)
-
-Factory metaphor: Imagine a factory that has a mold for making toys. The mold would be the Schema. The machine that is capable of putting the plastic into the mold, pressing it, and delivering a new toy to the world would be the model. The toy itself would be the data that would now be stored in some packaging in your database.
-
 
 
 ## Express/MongoDB Integration
@@ -167,7 +173,7 @@ Once you've finished the above steps, here's how you would set up an Express app
 
 #### Database IDs and data-types
 
-Every model instance that we store in the database is assigned an ID.  In mongo that actually means an `_id`.  We can use this ID later to look up a particular record.  Later on we'll look at how we can use those IDs can help us form relationships in the database.
+Every model instance that we store in the database is assigned an ID.  In Mongo there will be a key of `_id` with a 24 character string.  We can use this ID later to look up a particular record.  Later on we'll look at how we can use those IDs can help us form relationships in the database.
 
 Most databases also require that we specify the data-type for each attribute.  In mongoose we can use data-types from javascript such as String, Number, and even Array.
 
@@ -181,7 +187,7 @@ var mongoose = require('mongoose'),
 var personSchema = new mongoose.Schema({
     firstName: String,
     lastName: String,
-    age: Number,
+    height: Number,
     superPower: String,
     weakness: String,
     isExcited: Boolean
@@ -201,16 +207,16 @@ Let's create an instance of this model.
   // server.js
   var Person = require('./models/person');
 
-  var justin = new Person({
-      firstName: "Justin",
-      lastName: "Castilla",
-      age: 33,
-      superPower: "Beard",
-      weakness: "Razors",
+  var ilias = new Person({
+      firstName: "Ilias",
+      lastName: "Tsangaris",
+      height: 6.0,
+      superPower: "Puppy",
+      weakness: "Puppy",
       isExcited: true
   });
 
-  justin.save(function(err, newPerson){
+  ilias.save(function(err, newPerson){
     if(err) {return console.log(err);}
     console.log("saved new person: ", newPerson);
   });
@@ -221,12 +227,12 @@ The above logs to the terminal the `newPerson` success object:
 ```bash
 saved new person:  {
   __v: 0,
-  firstName: 'Justin',
-  lastName: 'Castilla',
-  age: 33,
-  superPower: 'Beard',
-  weakness: 'Razors',
-  isExcited: true,
+  firstName: "Ilias",
+  lastName: "Tsangaris",
+  height: 6.0,
+  superPower: "Puppy",
+  weakness: "Puppy",
+  isExcited: true
   _id: 57866b9f9d89c840336a135e }
 
 ```
@@ -243,11 +249,21 @@ Yesterday, when we wanted to access or manipulate stored data, we worked with an
 
 <details>
   <summary>At what API route did we complete each of the above?</summary>
-  * sending along the whole array: GET /todos
-  * finding single objects in an array: GET /todos/:id
-  * adding objects to an array: POST /todos
-  * deleting elements from an array: DELETE /todos/:id
+  <ul>
+    <li>
+      sending along the whole array: GET /todos
+    </li>
+    <li>
+      finding single objects in an array: GET /todos/:id
+    </li>
+    <li>
+      adding objects to an array: POST /todos
+    </li>
+    <li>
+      deleting elements from an array: DELETE /todos/:id
+    </li>
 </details>
+
 
 Luckily, Mongoose provides methods to access the database data which will help us accomplish the same work as yesterday.
 
