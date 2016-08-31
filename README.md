@@ -27,8 +27,7 @@ Arrays are not a good place to store data permanently. We have been adding objec
 *Before this workshop, developers should already be able to:*
 
 - Use Express to configure a server's responses to various HTTP verbs on various routes.
-- On the server-side, access data that comes in on a request from the client-side (`req.body` or `req.params`).
--
+- access data that comes in on a request from the client-side (`req.body` or `req.params`).
 
 |
 
