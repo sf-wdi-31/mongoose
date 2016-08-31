@@ -112,6 +112,11 @@ With the above Schema, we can expect that all of our Address Book entries would 
 var Contact = mongoose.model('Contact', ContactSchema);
 ```
 
+![image](https://i.chzbgr.com/full/7986468352/hE55E1B66/)
+
+Factory metaphor: Imagine a factory that has a mold for making toys. The mold would be the Schema. The machine that is capable of putting the plastic into the mold, pressing it, and delivering a new toy to the world would be the model. The toy itself would be the data that would now be stored in some packaging in your database.
+
+
 
 ## Express/MongoDB Integration
 Once you've finished the above steps, here's how you would set up an Express application with a "Todo" model (so we can start CRUDing todos!).
@@ -238,7 +243,7 @@ Notice that mongo has added an `_id` and `__v` attributes.
 Yesterday, when we wanted to access or manipulate stored data, we worked with an array. We were sending along the whole array, finding single objects in an array, adding objects to an array, and deleting elements from an array.
 
 <details>
-  <summary>At what path did we do each of the above?</summary>
+  <summary>At what API route did we complete each of the above?</summary>
   * sending along the whole array: GET /todos
   * finding single objects in an array: GET /todos/:id
   * adding objects to an array: POST /todos
