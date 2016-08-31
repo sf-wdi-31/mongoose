@@ -375,12 +375,10 @@ Exploring your databases with the MongoDB shell can be a chore. Robomongo is a f
 Practice the skills covered in this workshop with the [Mongoose books training](https://github.com/sf-wdi-31/mongoose-books-app)
 
 ## Closing Thoughts
-- review objectives & hierarchy of importance
-- look ahead & link to future workshops
-- clarify expectations and what developers should know by now
-- reiterate “the why” with a perspective of your intentions
-- create an active recall
-- Check for understanding
+- Recall: What was the rubber duck in the factory metaphor? What was the mold to make the duck? What abou the whole assembly line that actually builds ducks?
+- This afternoon, we'll be looking at more complex relationships between entries in our databases.
+- Right now, you should know how to set up the connections to Mongo in your app using mongoose in the models directory.
+- This is our first dive into databases and will allow us to store data that will persist across time. That's a key feature to the internet - recognize how far you've come!
 
 ## Additional Resources
 * [Scotch Tutorial: Intro to MongoDB](https://scotch.io/tutorials/an-introduction-to-mongodb)
