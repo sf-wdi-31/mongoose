@@ -5,7 +5,7 @@ Market: SF
 
 ![](https://ga-dash.s3.amazonaws.com/production/assets/logo-9f88ae6c9c3871690e33280fcf557f33.png)
 
-# Mongo and Mongoose
+# Mongoose
 
 ### Why is this important?
 <!-- framing the "why" in big-picture/real world examples -->
@@ -29,13 +29,11 @@ Mongoose validates the structure and normalizes data that is persisted in Mongo.
 - Use Express to configure a server's responses to various HTTP verbs on various routes.
 - access data that comes in on a request from the client-side (`req.body` or `req.params`).
 
-|
-
-## Review: What are Mongo and Mongoose?
+## Compare and contrast Mongo and Mongoose?
 
 ![tumblr_nbhme6bafu1s02vreo1_500](https://cloud.githubusercontent.com/assets/4304660/16811532/b08865a8-48dd-11e6-9474-c114b2e8a00d.gif)
 
-`MongoDB` is a no-SQL database. It is responsible for putting data in containers and making sure that the data is safe and organized. `Mongoose` is a library or "wrapper" that gives us a bunch of convenience methods for working with MongoDB records (kind of like jQuery's convenience methods for manipulating the DOM). Generally we will not be interacting _directly_ with MongoDB, instead we'll be working with `mongoose`.
+`MongoDB` is a no-SQL database. It is responsible for putting data in containers and making sure that the data is safe and organized. `Mongoose` is a library or "wrapper" that gives us a bunch of convenience methods for working with MongoDB records (kind of like jQuery's convenience methods for manipulating the DOM). Generally we will not be interacting _directly_ with MongoDB, instead we'll be working through `mongoose`.
 
 <details><summary>Side-note: Wondering what makes noSQL different from SQL? (we'll talk more about this later)</summary>
 
@@ -60,14 +58,14 @@ Mongoose presents us with two key concepts for how we create and store data in o
 **[Schema](http://mongoosejs.com/docs/guide.html)**: A Schema is a diagram or blueprint for what every object in the noSQL database will contain. It does not include any methods, just placeholders for what data you will eventually store. Here's an example of a simple Address Book mongoose schema:
 
 ```js
-    var ContactSchema = new Schema({
-        firstName: String,
-        lastName: String,
-        address: String,
-        phoneNumber: Number,
-        email: String,
-        professionalContact: Boolean
-    });
+var ContactSchema = new Schema({
+    firstName: String,
+    lastName: String,
+    address: String,
+    phoneNumber: Number,
+    email: String,
+    professionalContact: Boolean
+});
 ```
 
 With the above Schema, we can expect that all of our Address Book entries would have a first name, last name, address, and email address in the form of Strings. We can count on the phoneNumber to always be accepted, stored, and returned as a number. Lastly, the boolean value of Professional Contact will always be a true or false. A Schema has no functionality. It simply defines the shape of the data that we will expect when we work with contacts.
