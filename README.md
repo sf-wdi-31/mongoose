@@ -11,7 +11,7 @@ Market: SF
 <!-- framing the "why" in big-picture/real world examples -->
 *This workshop is important because:*
 
-Arrays are not a good place to store data permanently. We have been adding objects to arrays in our server side code in order to keep track of the data that's coming and going. When we restart server.js, any changes that we made to the data are lost! We need to be able to talk to a *database* that is outside of our server code in order to store information for the long-term. MongoDB is a popular database that is often used in conjunction with full stack JavaScript applications. Mongoose is a package built to make communication with MongoDB as easy as possible.
+Mongoose validates the structure and normalizes data that is persisted in Mongo.
 
 ### What are the objectives?
 <!-- specific/measurable goal for students to achieve -->
