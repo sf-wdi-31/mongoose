@@ -154,7 +154,7 @@ Once you've finished the above steps, here's how you would set up an Express app
 
 #### Database IDs and data-types
 
-Most databases also require that we specify the data-type for each attribute.  In mongoose we can use data-types from javascript such as String, Number, and even Array.
+Most databases also require that we specify the data-type for each attribute.  In mongoose we can use data-types from javascript such as String, Number, and even Array. Here's a list of all the [available data-types](http://mongoosejs.com/docs/schematypes.html).
 
 Let's look at this example, using the `console.js` file to help us interact with our database.
 
