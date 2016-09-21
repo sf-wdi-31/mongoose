@@ -373,10 +373,8 @@ Exploring your databases with the MongoDB shell can be a chore. Robomongo is a f
 Practice the skills covered in this workshop with the [Mongoose books training](https://github.com/sf-wdi-31/mongoose-books-app)
 
 ## Closing Thoughts
-- Recall: What was the rubber duck in the factory metaphor? What was the mold to make the duck? What about the whole assembly line that actually builds ducks?
-- This afternoon, we'll be looking at more complex relationships between entries in our databases.
-- Right now, you should know how to set up the connections to Mongo in your app using mongoose in the models directory.
-- This is our first dive into databases and will allow us to store data that will persist across time. That's a key feature to the internet - recognize how far you've come!
+- Why is Mongoose useful?
+- Compare and contrast a schema with a model.
 
 ## Additional Resources
 * [MongooseJS](http://mongoosejs.com/)
