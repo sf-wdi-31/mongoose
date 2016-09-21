@@ -156,7 +156,7 @@ Once you've finished the above steps, here's how you would set up an Express app
 
 Most databases also require that we specify the data-type for each attribute.  In mongoose we can use data-types from javascript such as String, Number, and even Array.
 
-Let's look at this example:
+Let's look at this example, using the `console.js` file to help us interact with our database.
 
 ```js
 // models/person.js
@@ -183,9 +183,13 @@ In the above note how we've assigned **String**, **Number** and even a **Boolean
 Let's create an instance of this model.
 
 ```js
-  // server.js
+  // models/index.js
   var Person = require('./models/person');
+```
 
+Now let's the console file (fixing any errors you get) and try the below code:
+
+```js
   var ilias = new Person({
       firstName: "Ilias",
       lastName: "Tsangaris",
@@ -216,7 +220,7 @@ saved new person:  {
 
 ```
 
->Note: Every model instance that we store in the database is assigned an ID.  In Mongo there will be a key of `_id` with a 24 character string.  We can use this ID later to look up a particular record.  Later on we'll look at how we can use those IDs can help us form relationships in the database.
+>Note: Every model instance that we store in the database is assigned an ID. In Mongo there will be a key of `_id` with a 24 character string.  We can use this ID later to look up a particular record. Later on we'll look at how we can use those IDs can help us form relationships in the database.
 
 ## CRUD Operations with Mongoose
 
