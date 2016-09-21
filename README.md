@@ -214,7 +214,7 @@ Let's create an instance of this model.
       isExcited: true
   });
 
-  ilias.save(function(err, newPerson){
+  ilias.save(function(err, newPerson) {
     if(err) {return console.log(err);}
     console.log("saved new person: ", newPerson);
   });
@@ -271,9 +271,9 @@ Luckily, Mongoose provides methods to access the database data which will help u
   <summary>We can use <a href="http://mongoosejs.com/docs/api.html#model_Model.find"  target="_blank">.find()</a> to get all documents in the collection.</summary>
   ```js
   // get all todos
-  app.get('/api/todos', function todosIndex(req, res) {
+  app.get('/api/todos', function(req, res) {
     // find all todos in db
-    Todo.find(function handleDBTodosListed(err, allTodos) {
+    Todo.find(function(err, allTodos) {
       res.json({ todos: allTodos });
     });
   });
@@ -289,12 +289,12 @@ Luckily, Mongoose provides methods to access the database data which will help u
   We've seen the `new` keyword before! It creates new instances of an object. We use it here to create new instances of our `Todo` model. We then call `.save()` to store the new todo in our database.</summary>
   ```js
   // create new todo
-  app.post('/api/todos', function todosCreate(req, res) {
+  app.post('/api/todos', function(req, res) {
     // create new todo with form data (`req.body`)
     var newTodo = new Todo(req.body);
 
     // save new todo in db
-    newTodo.save(function handleDBTodoSaved(err, savedTodo) {
+    newTodo.save(function(err, savedTodo) {
       res.json(savedTodo);
     });
   });
@@ -307,12 +307,12 @@ Luckily, Mongoose provides methods to access the database data which will help u
   <summary>We can use <a href="http://mongoosejs.com/docs/api.html#query_Query-findOne">.findOne()</a> to return the first document in the collection that matches certain criteria. In this case, we're looking for a todo that has a certain `_id`.</summary>
   ```js
   // get one todo
-  app.get('/api/todos/:id', function (req, res) {
+  app.get('/api/todos/:id', function(req, res) {
     // get todo id from url params (`req.params`)
     var todoId = req.params.id;
 
     // find todo in db by id
-    Todo.findOne({ _id: todoId }, function (err, foundTodo) {
+    Todo.findOne({ _id: todoId }, function(err, foundTodo) {
       res.json(foundTodo);
     });
   });
@@ -327,18 +327,18 @@ Luckily, Mongoose provides methods to access the database data which will help u
   <summary>Similar to the last example, we can use `.findOne()` to find the document with a certain `_id`. After updating the document, we use `.save()` to persist our changes to the database.</summary>
   ```js
   // update todo
-  app.put('/api/todos/:id', function (req, res) {
+  app.put('/api/todos/:id', function(req, res) {
     // get todo id from url params (`req.params`)
     var todoId = req.params.id;
 
     // find todo in db by id
-    Todo.findOne({ _id: todoId }, function (err, foundTodo) {
+    Todo.findOne({ _id: todoId }, function(err, foundTodo) {
       // update the todos's attributes
       foundTodo.task = req.body.task;
       foundTodo.description = req.body.description;
 
       // save updated todo in db
-      foundTodo.save(function (err, savedTodo) {
+      foundTodo.save(function(err, savedTodo) {
         res.json(savedTodo);
       });
     });
@@ -352,12 +352,12 @@ Luckily, Mongoose provides methods to access the database data which will help u
   <summary>The <a href="http://mongoosejs.com/docs/api.html#model_Model.findOneAndRemove" target="_blank">.findOneAndRemove()</a> method takes care of finding the document with a certain `_id` and removing it from the database.</summary>
   ```js
   // delete todo
-  app.delete('/api/todos/:id', function (req, res) {
+  app.delete('/api/todos/:id', function(req, res) {
     // get todo id from url params (`req.params`)
     var todoId = req.params.id;
 
     // find todo in db by id and remove
-    Todo.findOneAndRemove({ _id: todoId }, function (err, deletedTodo) {
+    Todo.findOneAndRemove({ _id: todoId }, function(err, deletedTodo) {
       res.json(deletedTodo);
     });
   });
