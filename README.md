@@ -163,7 +163,7 @@ Let's look at this example, using the `console.js` file to help us interact with
 var mongoose = require('mongoose'),
   Schema = mongoose.Schema;
 
-var personSchema = new mongoose.Schema({
+var personSchema = new Schema({
     firstName: String,
     lastName: String,
     height: Number,
