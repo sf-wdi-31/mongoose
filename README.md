@@ -154,8 +154,6 @@ Once you've finished the above steps, here's how you would set up an Express app
 
 #### Database IDs and data-types
 
-Every model instance that we store in the database is assigned an ID.  In Mongo there will be a key of `_id` with a 24 character string.  We can use this ID later to look up a particular record.  Later on we'll look at how we can use those IDs can help us form relationships in the database.
-
 Most databases also require that we specify the data-type for each attribute.  In mongoose we can use data-types from javascript such as String, Number, and even Array.
 
 Let's look at this example:
@@ -218,11 +216,7 @@ saved new person:  {
 
 ```
 
-Notice that mongo has added an `_id` and `__v` attributes.
-
-
-![](https://cloud.githubusercontent.com/assets/4304660/16811660/42d59d40-48de-11e6-99c5-3f68167c08bd.gif)
-
+>Note: Every model instance that we store in the database is assigned an ID.  In Mongo there will be a key of `_id` with a 24 character string.  We can use this ID later to look up a particular record.  Later on we'll look at how we can use those IDs can help us form relationships in the database.
 
 ## CRUD Operations with Mongoose
 
