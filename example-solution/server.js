@@ -46,7 +46,7 @@ app.get('/', function homepage(req, res) {
 // get all todos
 app.get('/api/todos', function index(req, res) {
   // find all todos in db
-  db.Todo.find(function (err, allTodos) {
+  db.Todo.find({}, function (err, allTodos) {
     if (err) {
       res.status(500).json({ error: err.message });
     } else {
