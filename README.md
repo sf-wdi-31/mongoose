@@ -273,7 +273,7 @@ Luckily, Mongoose provides methods to access the database data which will help u
   // get all todos
   app.get('/api/todos', function(req, res) {
     // find all todos in db
-    Todo.find(function(err, allTodos) {
+    Todo.find({}, function(err, allTodos) {
       res.json({ todos: allTodos });
     });
   });
