@@ -200,7 +200,7 @@ Now let's the console file (fixing any errors you get) and try the below code:
   });
 
   ilias.save(function(err, newPerson) {
-    if(err) {return console.log(err);}
+    if(err) { throw err }
     console.log("saved new person: ", newPerson);
   });
 ```
