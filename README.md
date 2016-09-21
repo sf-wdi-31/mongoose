@@ -102,7 +102,7 @@ Let's do a quick activity and get Mongoose and Mongo setup on our machines.
 
   ```js
     var mongoose = require('mongoose');
-    mongoose.connect('mongodb://localhost/todo-app-demo');
+    mongoose.connect('mongodb://localhost/todo-app');
   ```
 
     <details>
