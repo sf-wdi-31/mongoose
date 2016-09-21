@@ -9,7 +9,7 @@ Market: SF
 
 ### Why is this important?
 <!-- framing the "why" in big-picture/real world examples -->
-*This workshop is important because:*
+*This workshop is important because:*th
 
 Mongoose validates the structure and normalizes data that is persisted in Mongo.
 
@@ -200,7 +200,7 @@ Now let's the console file (fixing any errors you get) and try the below code:
   });
 
   ilias.save(function(err, newPerson) {
-    if(err) { throw err }
+    if(err) { return console.log(err) }
     console.log("saved new person: ", newPerson);
   });
 ```
