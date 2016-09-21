@@ -121,27 +121,10 @@ Let's do a quick activity and get Mongoose and Mongo setup on our machines.
 Running your MongoDB service is no different from running your Express Server!
 
 
-## Express/MongoDB Integration
-Once you've finished the above steps, here's how you would set up an Express application with a "Todo" model (so we can start CRUDing todos!).
+## Todo App Integration
+Once you've finished the above steps, here's how you would set up an Express application with a "Todo" model (so we can start CRUDing todos!). Look in the directory `starter-code` for a starting point.
 
-1. In your Express application, create a folder called `models` with a file for your first model. In the example, we have a `Todo` model, so the filename is `todo.js`. Your folder structure should look similar to this:
-
-  ```
-  your-app-name
-  ├── models
-  │   └── todo.js
-  ├── public
-  │   ├── scripts
-  │   │   └── main.js
-  │   └── styles
-  │       └── main.css
-  ├── views
-  │   └── index.html
-  ├── .gitignore
-  ├── package.json
-  ├── README.md
-  └── server.js
-  ```
+1. We'll need a `Todo` model, which we will call `todo.js`...
 
 2. <details>
   <summary>In your model file (e.g. `todo.js`), create the model **schema**, and export it so that you can require it in other parts of your app.</summary>
