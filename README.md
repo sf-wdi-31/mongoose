@@ -5,13 +5,13 @@ Market: SF
 
 ![](https://ga-dash.s3.amazonaws.com/production/assets/logo-9f88ae6c9c3871690e33280fcf557f33.png)
 
-# Mongo and Mongoose
+# Mongoose
 
 ### Why is this important?
 <!-- framing the "why" in big-picture/real world examples -->
-*This workshop is important because:*
+*This workshop is important because:*th
 
-Arrays are not a good place to store data permanently. We have been adding objects to arrays in our server side code in order to keep track of the data that's coming and going. When we restart server.js, any changes that we made to the data are lost! We need to be able to talk to a *database* that is outside of our server code in order to store information for the long-term. MongoDB is a popular database that is often used in conjunction with full stack JavaScript applications. Mongoose is a package built to make communication with MongoDB as easy as possible.
+Mongoose validates the structure and normalizes data that is persisted in Mongo.
 
 ### What are the objectives?
 <!-- specific/measurable goal for students to achieve -->
@@ -29,13 +29,11 @@ Arrays are not a good place to store data permanently. We have been adding objec
 - Use Express to configure a server's responses to various HTTP verbs on various routes.
 - access data that comes in on a request from the client-side (`req.body` or `req.params`).
 
-|
-
-## Review: What are Mongo and Mongoose?
+## Compare and contrast Mongo and Mongoose?
 
 ![tumblr_nbhme6bafu1s02vreo1_500](https://cloud.githubusercontent.com/assets/4304660/16811532/b08865a8-48dd-11e6-9474-c114b2e8a00d.gif)
 
-`MongoDB` is a no-SQL database. It is responsible for putting data in containers and making sure that the data is safe and organized. `Mongoose` is a library or "wrapper" that gives us a bunch of convenience methods for working with MongoDB records (kind of like jQuery's convenience methods for manipulating the DOM). Generally we will not be interacting _directly_ with MongoDB, instead we'll be working with `mongoose`.
+`MongoDB` is a no-SQL database. It is responsible for putting data in containers and making sure that the data is safe and organized. `Mongoose` is a library or "wrapper" that gives us a bunch of convenience methods for working with MongoDB records (kind of like jQuery's convenience methods for manipulating the DOM). Generally we will not be interacting _directly_ with MongoDB, instead we'll be working through `mongoose`.
 
 <details><summary>Side-note: Wondering what makes noSQL different from SQL? (we'll talk more about this later)</summary>
 
@@ -60,14 +58,14 @@ Mongoose presents us with two key concepts for how we create and store data in o
 **[Schema](http://mongoosejs.com/docs/guide.html)**: A Schema is a diagram or blueprint for what every object in the noSQL database will contain. It does not include any methods, just placeholders for what data you will eventually store. Here's an example of a simple Address Book mongoose schema:
 
 ```js
-    var ContactSchema = new Schema({
-        firstName: String,
-        lastName: String,
-        address: String,
-        phoneNumber: Number,
-        email: String,
-        professionalContact: Boolean
-    });
+var ContactSchema = new Schema({
+    firstName: String,
+    lastName: String,
+    address: String,
+    phoneNumber: Number,
+    email: String,
+    professionalContact: Boolean
+});
 ```
 
 With the above Schema, we can expect that all of our Address Book entries would have a first name, last name, address, and email address in the form of Strings. We can count on the phoneNumber to always be accepted, stored, and returned as a number. Lastly, the boolean value of Professional Contact will always be a true or false. A Schema has no functionality. It simply defines the shape of the data that we will expect when we work with contacts.
@@ -104,7 +102,7 @@ Let's do a quick activity and get Mongoose and Mongo setup on our machines.
 
   ```js
     var mongoose = require('mongoose');
-    mongoose.connect('mongodb://localhost/todo-app-demo');
+    mongoose.connect('mongodb://localhost/todo-app');
   ```
 
     <details>
@@ -123,27 +121,10 @@ Let's do a quick activity and get Mongoose and Mongo setup on our machines.
 Running your MongoDB service is no different from running your Express Server!
 
 
-## Express/MongoDB Integration
-Once you've finished the above steps, here's how you would set up an Express application with a "Todo" model (so we can start CRUDing todos!).
+## Todo App Integration
+Once you've finished the above steps, here's how you would set up an Express application with a "Todo" model (so we can start CRUDing todos!). Look in the directory `starter-code` for a starting point.
 
-1. In your Express application, create a folder called `models` with a file for your first model. In the example, we have a `Todo` model, so the filename is `todo.js`. Your folder structure should look similar to this:
-
-  ```
-  your-app-name
-  ├── models
-  │   └── todo.js
-  ├── public
-  │   ├── scripts
-  │   │   └── main.js
-  │   └── styles
-  │       └── main.css
-  ├── views
-  │   └── index.html
-  ├── .gitignore
-  ├── package.json
-  ├── README.md
-  └── server.js
-  ```
+1. We'll need a `Todo` model, which we will call `todo.js`...
 
 2. <details>
   <summary>In your model file (e.g. `todo.js`), create the model **schema**, and export it so that you can require it in other parts of your app.</summary>
@@ -173,18 +154,16 @@ Once you've finished the above steps, here's how you would set up an Express app
 
 #### Database IDs and data-types
 
-Every model instance that we store in the database is assigned an ID.  In Mongo there will be a key of `_id` with a 24 character string.  We can use this ID later to look up a particular record.  Later on we'll look at how we can use those IDs can help us form relationships in the database.
+Most databases also require that we specify the data-type for each attribute.  In mongoose we can use data-types from javascript such as String, Number, and even Array. Here's a list of all the [available data-types](http://mongoosejs.com/docs/schematypes.html).
 
-Most databases also require that we specify the data-type for each attribute.  In mongoose we can use data-types from javascript such as String, Number, and even Array.
-
-Let's look at this example:
+Let's look at this example, using the `console.js` file to help us interact with our database.
 
 ```js
 // models/person.js
 var mongoose = require('mongoose'),
   Schema = mongoose.Schema;
 
-var personSchema = new mongoose.Schema({
+var personSchema = new Schema({
     firstName: String,
     lastName: String,
     height: Number,
@@ -204,9 +183,13 @@ In the above note how we've assigned **String**, **Number** and even a **Boolean
 Let's create an instance of this model.
 
 ```js
-  // server.js
+  // models/index.js
   var Person = require('./models/person');
+```
 
+Now let's the console file (fixing any errors you get) and try the below code:
+
+```js
   var ilias = new Person({
       firstName: "Ilias",
       lastName: "Tsangaris",
@@ -216,8 +199,8 @@ Let's create an instance of this model.
       isExcited: true
   });
 
-  ilias.save(function(err, newPerson){
-    if(err) {return console.log(err);}
+  ilias.save(function(err, newPerson) {
+    if(err) { return console.log(err) }
     console.log("saved new person: ", newPerson);
   });
 ```
@@ -237,11 +220,7 @@ saved new person:  {
 
 ```
 
-Notice that mongo has added an `_id` and `__v` attributes.
-
-
-![](https://cloud.githubusercontent.com/assets/4304660/16811660/42d59d40-48de-11e6-99c5-3f68167c08bd.gif)
-
+>Note: Every model instance that we store in the database is assigned an ID. In Mongo there will be a key of `_id` with a 24 character string.  We can use this ID later to look up a particular record. Later on we'll look at how we can use those IDs can help us form relationships in the database.
 
 ## CRUD Operations with Mongoose
 
@@ -273,9 +252,9 @@ Luckily, Mongoose provides methods to access the database data which will help u
   <summary>We can use <a href="http://mongoosejs.com/docs/api.html#model_Model.find"  target="_blank">.find()</a> to get all documents in the collection.</summary>
   ```js
   // get all todos
-  app.get('/api/todos', function todosIndex(req, res) {
+  app.get('/api/todos', function(req, res) {
     // find all todos in db
-    Todo.find(function handleDBTodosListed(err, allTodos) {
+    Todo.find({}, function(err, allTodos) {
       res.json({ todos: allTodos });
     });
   });
@@ -291,12 +270,12 @@ Luckily, Mongoose provides methods to access the database data which will help u
   We've seen the `new` keyword before! It creates new instances of an object. We use it here to create new instances of our `Todo` model. We then call `.save()` to store the new todo in our database.</summary>
   ```js
   // create new todo
-  app.post('/api/todos', function todosCreate(req, res) {
+  app.post('/api/todos', function(req, res) {
     // create new todo with form data (`req.body`)
     var newTodo = new Todo(req.body);
 
     // save new todo in db
-    newTodo.save(function handleDBTodoSaved(err, savedTodo) {
+    newTodo.save(function(err, savedTodo) {
       res.json(savedTodo);
     });
   });
@@ -309,12 +288,12 @@ Luckily, Mongoose provides methods to access the database data which will help u
   <summary>We can use <a href="http://mongoosejs.com/docs/api.html#query_Query-findOne">.findOne()</a> to return the first document in the collection that matches certain criteria. In this case, we're looking for a todo that has a certain `_id`.</summary>
   ```js
   // get one todo
-  app.get('/api/todos/:id', function (req, res) {
+  app.get('/api/todos/:id', function(req, res) {
     // get todo id from url params (`req.params`)
     var todoId = req.params.id;
 
     // find todo in db by id
-    Todo.findOne({ _id: todoId }, function (err, foundTodo) {
+    Todo.findOne({ _id: todoId }, function(err, foundTodo) {
       res.json(foundTodo);
     });
   });
@@ -329,18 +308,18 @@ Luckily, Mongoose provides methods to access the database data which will help u
   <summary>Similar to the last example, we can use `.findOne()` to find the document with a certain `_id`. After updating the document, we use `.save()` to persist our changes to the database.</summary>
   ```js
   // update todo
-  app.put('/api/todos/:id', function (req, res) {
+  app.put('/api/todos/:id', function(req, res) {
     // get todo id from url params (`req.params`)
     var todoId = req.params.id;
 
     // find todo in db by id
-    Todo.findOne({ _id: todoId }, function (err, foundTodo) {
+    Todo.findOne({ _id: todoId }, function(err, foundTodo) {
       // update the todos's attributes
       foundTodo.task = req.body.task;
       foundTodo.description = req.body.description;
 
       // save updated todo in db
-      foundTodo.save(function (err, savedTodo) {
+      foundTodo.save(function(err, savedTodo) {
         res.json(savedTodo);
       });
     });
@@ -354,12 +333,12 @@ Luckily, Mongoose provides methods to access the database data which will help u
   <summary>The <a href="http://mongoosejs.com/docs/api.html#model_Model.findOneAndRemove" target="_blank">.findOneAndRemove()</a> method takes care of finding the document with a certain `_id` and removing it from the database.</summary>
   ```js
   // delete todo
-  app.delete('/api/todos/:id', function (req, res) {
+  app.delete('/api/todos/:id', function(req, res) {
     // get todo id from url params (`req.params`)
     var todoId = req.params.id;
 
     // find todo in db by id and remove
-    Todo.findOneAndRemove({ _id: todoId }, function (err, deletedTodo) {
+    Todo.findOneAndRemove({ _id: todoId }, function(err, deletedTodo) {
       res.json(deletedTodo);
     });
   });
@@ -367,25 +346,13 @@ Luckily, Mongoose provides methods to access the database data which will help u
   **Note:** Another way to remove the document is by finding the document first (using `.findOne()` or  `.findById()`) and calling <a href="http://mongoosejs.com/docs/api.html#model_Model.remove" target="_blank">`.remove()`</a>.
 </details>
 
-
-#### Robomongo: The MongoDB GUI
-Exploring your databases with the MongoDB shell can be a chore. Robomongo is a free application that can make it a little easier on you: [Setting up Robomongo](https://scotch.io/tutorials/an-introduction-to-mongodb#gui-tool:-robomongo).
-
 ## Independent Practice
 Practice the skills covered in this workshop with the [Mongoose books training](https://github.com/sf-wdi-31/mongoose-books-app)
 
 ## Closing Thoughts
-- Recall: What was the rubber duck in the factory metaphor? What was the mold to make the duck? What abou the whole assembly line that actually builds ducks?
-- This afternoon, we'll be looking at more complex relationships between entries in our databases.
-- Right now, you should know how to set up the connections to Mongo in your app using mongoose in the models directory.
-- This is our first dive into databases and will allow us to store data that will persist across time. That's a key feature to the internet - recognize how far you've come!
+- Why is Mongoose useful?
+- Compare and contrast a schema with a model.
 
 ## Additional Resources
-* [Scotch Tutorial: Intro to MongoDB](https://scotch.io/tutorials/an-introduction-to-mongodb)
-* [MongoDB Shell Commands](https://docs.mongodb.org/manual/reference/mongo-shell/)
-* [MongoDB CRUD Tutorials](https://docs.mongodb.org/manual/applications/crud/)
-* <a href="http://mongoosejs.com/docs/api.html#model_Model.find" target="_blank">.find()</a>
-* <a href="http://mongoosejs.com/docs/api.html#query_Query-findOne" target="_blank">.findOne()</a>
-* <a href="http://mongoosejs.com/docs/api.html#model_Model.findById" target="_blank">.findById()</a>
-* <a href="http://mongoosejs.com/docs/api.html#model_Model.findOneAndRemove" target="_blank">.findOneAndRemove()</a>
-* <a href="http://mongoosejs.com/docs/api.html#model_Model.remove" target="_blank">.remove()</a>
+* [MongooseJS](http://mongoosejs.com/)
+* [Mongoose Getting Started](http://mongoosejs.com/docs/)
