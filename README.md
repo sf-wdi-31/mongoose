@@ -373,17 +373,11 @@ Exploring your databases with the MongoDB shell can be a chore. Robomongo is a f
 Practice the skills covered in this workshop with the [Mongoose books training](https://github.com/sf-wdi-31/mongoose-books-app)
 
 ## Closing Thoughts
-- Recall: What was the rubber duck in the factory metaphor? What was the mold to make the duck? What abou the whole assembly line that actually builds ducks?
+- Recall: What was the rubber duck in the factory metaphor? What was the mold to make the duck? What about the whole assembly line that actually builds ducks?
 - This afternoon, we'll be looking at more complex relationships between entries in our databases.
 - Right now, you should know how to set up the connections to Mongo in your app using mongoose in the models directory.
 - This is our first dive into databases and will allow us to store data that will persist across time. That's a key feature to the internet - recognize how far you've come!
 
 ## Additional Resources
-* [Scotch Tutorial: Intro to MongoDB](https://scotch.io/tutorials/an-introduction-to-mongodb)
-* [MongoDB Shell Commands](https://docs.mongodb.org/manual/reference/mongo-shell/)
-* [MongoDB CRUD Tutorials](https://docs.mongodb.org/manual/applications/crud/)
-* <a href="http://mongoosejs.com/docs/api.html#model_Model.find" target="_blank">.find()</a>
-* <a href="http://mongoosejs.com/docs/api.html#query_Query-findOne" target="_blank">.findOne()</a>
-* <a href="http://mongoosejs.com/docs/api.html#model_Model.findById" target="_blank">.findById()</a>
-* <a href="http://mongoosejs.com/docs/api.html#model_Model.findOneAndRemove" target="_blank">.findOneAndRemove()</a>
-* <a href="http://mongoosejs.com/docs/api.html#model_Model.remove" target="_blank">.remove()</a>
+* [MongooseJS](http://mongoosejs.com/)
+* [Mongoose Getting Started](http://mongoosejs.com/docs/)
