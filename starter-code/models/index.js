@@ -1,7 +1,8 @@
-// Remove the error when complete...
-var helpfulError = new Error("FIRST CREATE A TODO MODEL & REQUIRE IT IN INDEX.JS!");
-throw helpfulError;
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/todo-app');
 
-var Todo = require('./todo');
+var Person = require('./person');
+// var Todo = require('./todo');
 
-exports.Todo = Todo;
+exports.Person = Person;
+// exports.Todo = Todo;
