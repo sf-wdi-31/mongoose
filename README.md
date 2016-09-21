@@ -163,7 +163,7 @@ Let's look at this example, using the `console.js` file to help us interact with
 var mongoose = require('mongoose'),
   Schema = mongoose.Schema;
 
-var personSchema = new mongoose.Schema({
+var personSchema = new Schema({
     firstName: String,
     lastName: String,
     height: Number,
@@ -200,7 +200,7 @@ Now let's the console file (fixing any errors you get) and try the below code:
   });
 
   ilias.save(function(err, newPerson) {
-    if(err) {return console.log(err);}
+    if(err) { throw err }
     console.log("saved new person: ", newPerson);
   });
 ```
